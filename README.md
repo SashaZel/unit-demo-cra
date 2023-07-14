@@ -73,10 +73,16 @@ git commit -m "chore: add hot feature bug fix"
 # (адрес моего репо или адрес вашего форка)
 git remote add feature_one https://github.com/SashaZel/unit-demo-cra
 
+# пуш в новую ветку
+git push feature_one featureOneSuperNew
+
 # в браузере перейдите на адрес моего репо https://github.com/SashaZel/unit-demo-cra
 # сделайте pull request в меню сверху (большая зеленая кнопочка или в меню Pull requests) 
 # Внимание! Выберите правильную ветку КУДА будет пулл реквест 
 # (не в базовый репо домашки!!! В иконке "base" должен быть мой репо или ваш форк.)
 
 ```
-Hot one
+
+Hot dog 
+Yep. Another hot dog
+
