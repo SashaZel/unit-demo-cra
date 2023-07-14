@@ -82,5 +82,7 @@ git push feature_one featureOneSuperNew
 # (не в базовый репо домашки!!! В иконке "base" должен быть мой репо или ваш форк.)
 
 ```
+
 Hot dog 
 Yep. Another hot dog
+
