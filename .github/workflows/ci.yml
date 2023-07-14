@@ -23,5 +23,9 @@ jobs:
                 node-version: '18.x'
             - name: Install packages
               run: npm ci
-            - name: Testing
+            - name: Unit testing
               run: CI=true npm test
+            - name: Install browsers
+              run: npx playwright install
+            - name: E2E testing
+              run: npx playwright test --quiet --project=chromium --reporter=list
