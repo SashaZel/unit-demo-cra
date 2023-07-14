@@ -26,6 +26,6 @@ jobs:
             - name: Unit testing
               run: CI=true npm test
             - name: Install browsers
-              run: npx playwright install --with-deps
+              run: npx playwright install
             - name: E2E testing
               run: npx playwright test --quiet --project=chromium --reporter=list
