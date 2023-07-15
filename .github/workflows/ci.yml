@@ -17,6 +17,7 @@ jobs:
               uses: actions/checkout@v3
               with:
                 fetch-depth: 0
+            - name: Just a test msg
               run: echo "test case"
             # - name: Setup node
             #   uses: actions/setup-node@v3
