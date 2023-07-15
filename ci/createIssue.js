@@ -15,9 +15,6 @@ async function createIssue() {
     repo: 'unit-demo-cra',
     title: 'Found a bug',
     body: 'I\'m having a problem with this.',
-    assignees: [
-      'octocat'
-    ],
     labels: [
       'bug'
     ],
