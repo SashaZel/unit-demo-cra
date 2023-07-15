@@ -14,10 +14,10 @@ async function main() {
 
   let tagData;
   try {
-    tagData = await octokit.request(`GET /repos/SashaZel/unit-demo-cra/git/tags/${GH_SHA}`, {
+    tagData = await octokit.request(`GET /repos/SashaZel/unit-demo-cra/git/tags/${"000654c0ad9d7ad799949b79ae0410ca3905d080"}`, {
       owner: "SashaZel",
       repo: "unit-demo-cra",
-      tag_sha: GH_SHA,
+      tag_sha: "000654c0ad9d7ad799949b79ae0410ca3905d080",
       headers: {
         "X-GitHub-Api-Version": "2022-11-28",
       },
