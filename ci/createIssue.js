@@ -18,7 +18,6 @@ async function createIssue() {
     assignees: [
       'octocat'
     ],
-    milestone: 1,
     labels: [
       'bug'
     ],
