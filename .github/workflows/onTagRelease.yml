@@ -1,6 +1,9 @@
-name: Create issue on commit
+name: Tag release
 
-on: [ push ]
+on: 
+    push:
+        tags:
+            - '*'
 
 jobs:
   create_issue:
