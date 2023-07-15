@@ -84,6 +84,8 @@ git remote add feature_one https://github.com/SashaZel/unit-demo-cra
 
 Как создать релиз?
 
+Добавьте разрешение создавать issue в репозитории.
+
 ```sh
 # Создайте релизный тег, например v12
 git tag -a v12 -m "my release version 12"
