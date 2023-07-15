@@ -4,6 +4,8 @@ const { Octokit } = require("@octokit/core");
 
 const GH_TOKEN = process.env.GH_TOKEN;
 const GH_REPO = process.env.GH_REPO;
+const GH_ACTOR = process.env.GH_ACTOR;
+const GH_REF_NAME = process.env.GH_REF_NAME;
 const GH_SHA = process.env.GH_SHA;
 
 const octokit = new Octokit({
@@ -11,13 +13,26 @@ const octokit = new Octokit({
 });
 
 async function main() {
+  // let tagData;
+  // try {
+  //   tagData = await octokit.request(`GET /repos/SashaZel/unit-demo-cra/git/tags/${GH_SHA}`, {
+  //     owner: "SashaZel",
+  //     repo: "unit-demo-cra",
+  //     tag_sha: GH_SHA,
+  //     headers: {
+  //       "X-GitHub-Api-Version": "2022-11-28",
+  //     },
+  //   });
+  // } catch (error) {
+  //   console.error("@createIssue.js Error: fail to get tag data ", error);
+  //   process.exit(1);
+  // }
 
   let tagData;
   try {
-    tagData = await octokit.request(`GET /repos/SashaZel/unit-demo-cra/git/tags/${"000654c0ad9d7ad799949b79ae0410ca3905d080"}`, {
-      owner: "SashaZel",
-      repo: "unit-demo-cra",
-      tag_sha: "000654c0ad9d7ad799949b79ae0410ca3905d080",
+    tagData = await octokit.request("GET /repos/SashaZel/unit-demo-cra/tags", {
+      owner: "OWNER",
+      repo: "REPO",
       headers: {
         "X-GitHub-Api-Version": "2022-11-28",
       },
@@ -27,17 +42,19 @@ async function main() {
     process.exit(1);
   }
 
-  const issueBody = `Release ${tagData.properties.tag.examples[0]}
-  Created by: ${tagData.properties.tagger.properties.name.type}
-  ${tagData.properties.date.type}
-  ${GH_REPO}`
+  console.log(tagData);
+
+  // const issueBody = `Release ${tagData.properties.tag.examples[0]}
+  // Created by: ${tagData.properties.tagger.properties.name.type}
+  // ${tagData.properties.date.type}
+  // ${GH_REPO}`
 
   try {
     await octokit.request("POST /repos/SashaZel/unit-demo-cra/issues", {
       owner: "SashaZel",
       repo: "unit-demo-cra",
-      title: `Create release ${tagData.properties.tag.examples[0]}`,
-      body: issueBody,
+      title: `Create release ${GH_REF_NAME}`,
+      body: `Release ${GH_ACTOR}`,
       labels: ["documentation"],
       headers: {
         "X-GitHub-Api-Version": "2022-11-28",
