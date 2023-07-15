@@ -39,4 +39,6 @@ jobs:
       - name: run ci file
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          GH_SHA: ${{ github.sha }}
         run: node ./ci/createIssue.js
