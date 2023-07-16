@@ -9,7 +9,7 @@ const GH_REF_NAME = process.env.GH_REF_NAME;
 const GH_SHA = process.env.GH_SHA;
 const GITHUB_CONTEXT = process.env.GITHUB_CONTEXT;
 
-console.log("@github context ", GITHUB_CONTEXT);
+//console.log("@github context ", GITHUB_CONTEXT);
 
 const octokit = new Octokit({
   auth: GH_TOKEN,
@@ -31,9 +31,10 @@ async function main() {
   //   process.exit(1);
   // }
 
-  let tagData;
+  // Get SHA for current tag
+  let tagSHAData;
   try {
-    tagData = await octokit.request("GET /repos/SashaZel/unit-demo-cra/tags", {
+    tagSHAData = await octokit.request(`GET /repos/SashaZel/unit-demo-cra/git/refs/tags/${GH_REF_NAME}`, {
       owner: "SashaZel",
       repo: "unit-demo-cra",
       headers: {
@@ -41,11 +42,45 @@ async function main() {
       },
     });
   } catch (error) {
-    console.error("@createIssue.js Error: fail to get tags data ", error);
+    console.error("@createIssue.js Error: fail to get tag sha ", error);
     process.exit(1);
   }
+  console.log("tagSHAdata ", tagSHAData)
+  const currentTagSHA = tagSHAData.data.object.sha;
 
-  console.log("tagsData ", JSON.stringify(tagData));
+  // Get current tag info
+  let tagInfo;
+  try {
+    tagInfo = await octokit.request(`GET /repos/SashaZel/unit-demo-cra/git/tags/${currentTagSHA}`, {
+      owner: "SashaZel",
+      repo: "unit-demo-cra",
+      headers: {
+        "X-GitHub-Api-Version": "2022-11-28",
+      },
+    });
+  } catch (error) {
+    console.error("@createIssue.js Error: fail to get tag sha ", error);
+    process.exit(1);
+  }
+  console.log("tagInfo ", tagInfo);
+  const tagInfoFormatted = `Tag author: ${tagInfo.data.tagger.name}\nTag date: ${tagInfo.data.tagger.date}\nTag message: ${tagInfo.data.message}\n \n`
+
+  // Can get all tags
+  // let tagData;
+  // try {
+  //   tagData = await octokit.request("GET /repos/SashaZel/unit-demo-cra/tags", {
+  //     owner: "SashaZel",
+  //     repo: "unit-demo-cra",
+  //     headers: {
+  //       "X-GitHub-Api-Version": "2022-11-28",
+  //     },
+  //   });
+  // } catch (error) {
+  //   console.error("@createIssue.js Error: fail to get tags data ", error);
+  //   process.exit(1);
+  // }
+
+  //console.log("tagsData ", JSON.stringify(tagData));
 
   let compareData;
   let previousTagNumber = Number(GH_REF_NAME.slice(1) - 1);
@@ -66,7 +101,7 @@ async function main() {
     console.error("@createIssue.js Error: fail to compare tags ", error);
     process.exit(1);
   }
-  console.log("compareData ", JSON.stringify(compareData));
+  //console.log("compareData ", JSON.stringify(compareData));
   const commitsChangelog = compareData.data.commits;
   let changelogFormatted = "";
   for (let i = 0; i < commitsChangelog.length; i++) {
@@ -79,7 +114,7 @@ async function main() {
   // ${tagData.properties.date.type}
   // ${GH_REPO}`
 
-  const issueBody = `Release ${GH_ACTOR}\nChangelog between v${previousTagNumber} and ${GH_REF_NAME}: \n \n ${changelogFormatted}`;
+  const issueBody = `Release ${GH_ACTOR}\n ${tagInfoFormatted}\nChangelog between v${previousTagNumber} and ${GH_REF_NAME}: \n \n ${changelogFormatted}`;
 
   try {
     await octokit.request("POST /repos/SashaZel/unit-demo-cra/issues", {
