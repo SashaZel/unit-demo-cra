@@ -12,7 +12,12 @@ const GITHUB_CONTEXT = process.env.GITHUB_CONTEXT;
 
 //console.log("@github context ", GITHUB_CONTEXT);
 
-let report = readFileSync("./ci/report.txt", "utf-8");
+let report 
+try {
+report = readFileSync("./ci/report.txt", "utf-8");
+} catch(error) {
+  console.error("@createIssue Error: no report file found");
+}
 
 const octokit = new Octokit({
   auth: GH_TOKEN,
