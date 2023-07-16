@@ -49,5 +49,6 @@ jobs:
           GH_ACTOR: ${{ github.actor }}
           GH_REF_NAME: ${{ github.ref_name }}
           GH_SHA: ${{ github.sha }}
+        run: node ./ci/createBranch.js
 
       
