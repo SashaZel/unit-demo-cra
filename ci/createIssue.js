@@ -82,9 +82,8 @@ async function main() {
 
   const issueBody = `# Release ${GH_REF_NAME}\n ${tagInfoFormatted}\n## Changelog between v${previousTagNumber} and ${GH_REF_NAME}: \n \n ${changelogFormatted} \n## Tests report\n \n${report}`;
 
-  let issueCreateResult;
   try {
-    issueCreateResult = await octokit.request(`POST /repos/${GH_REPO}/issues`, {
+    await octokit.request(`POST /repos/${GH_REPO}/issues`, {
       owner: GH_ACTOR,
       repo: "unit-demo-cra",
       title: `Create release ${GH_REF_NAME}`,
