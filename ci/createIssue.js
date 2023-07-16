@@ -1,6 +1,7 @@
 // Octokit.js
 // https://github.com/octokit/core.js#readme
 const { Octokit } = require("@octokit/core");
+const { readFileSync } = require("fs")
 
 const GH_TOKEN = process.env.GH_TOKEN;
 const GH_REPO = process.env.GH_REPO;
@@ -10,6 +11,8 @@ const GH_SHA = process.env.GH_SHA;
 const GITHUB_CONTEXT = process.env.GITHUB_CONTEXT;
 
 //console.log("@github context ", GITHUB_CONTEXT);
+
+let report = readFileSync("./ci/report.txt", "utf-8");
 
 const octokit = new Octokit({
   auth: GH_TOKEN,
@@ -114,7 +117,8 @@ async function main() {
   // ${tagData.properties.date.type}
   // ${GH_REPO}`
 
-  const issueBody = `Release ${GH_REF_NAME}\n ${tagInfoFormatted}\nChangelog between v${previousTagNumber} and ${GH_REF_NAME}: \n \n ${changelogFormatted}`;
+  const issueBody = `Release ${GH_REF_NAME}\n ${tagInfoFormatted}\nChangelog between v${previousTagNumber} and ${GH_REF_NAME}: \n \n ${changelogFormatted} \n
+  ${report}`;
 
   let issueCreateResult
   try {
@@ -129,7 +133,7 @@ async function main() {
       },
     });
     console.log(issueCreateResult.data.id);
-    process.env.ISSUE_ID_RAW = String(issueCreateResult.data.id);
+    process.env.ISSUE_ID = String(issueCreateResult.data.id);
   } catch (error) {
     console.error("@createIssue.js Error: fail to create issue ", error);
     process.exit(1);

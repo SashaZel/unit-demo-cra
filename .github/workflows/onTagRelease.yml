@@ -34,6 +34,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
+      - name: create_report
+        run: echo "first blood" >> ./ci/report.txt
       - name: Instal Oktokit SDK
         run: npm install @octokit/core
       - name: run ci file
@@ -46,13 +48,14 @@ jobs:
           GH_SHA: ${{ github.sha }}
           GITHUB_CONTEXT: ${{ toJson(github) }}
         # run: echo "ISSUE_ID=578" >> "$GITHUB_OUTPUT"
-        run: node ./ci/createIssue.js | echo "ISSUE_ID=$ISSUE_ID_RAW" >> "$GITHUB_OUTPUT"
-      - name: create_comment
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ISSUE_ID: ${{ steps.create-issue.outputs.output }}
-        # run: echo "issue id" && echo "$ISSUE_ID"
-        run: node ./ci/createIssueComment.js
+        run: node ./ci/createIssue.js | echo "$ISSUE_ID" >> "$GITHUB_OUTPUT"
+      
+      # - name: create_comment
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     ISSUE_ID: ${{ steps.create-issue.outputs.output }}
+      #   # run: echo "issue id" && echo "$ISSUE_ID"
+      #   run: node ./ci/createIssueComment.js
       # - name: Install packages
       #   run: npm ci
       # - name: Unit testing
