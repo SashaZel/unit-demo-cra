@@ -41,7 +41,7 @@ jobs:
       - name: Install packages
         run: npm ci
       - name: Unit testing
-        run: CI=true npm test >> ./ci/report.txt
+        run: CI=true npm test |& tee -a ./ci/report.txt
       - name: run ci file
         id: create-issue
         env:
