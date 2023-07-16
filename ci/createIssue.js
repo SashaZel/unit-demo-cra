@@ -45,11 +45,11 @@ async function main() {
   console.log("tagsData ", JSON.stringify(tagData));
 
   let compareData;
+  let previousTagNumber = Number(GH_REF_NAME.slice(1) - 1);
+  if (GH_REF_NAME === "v1") previousTagNumber = 1;
   try {
     compareData = await octokit.request(
-      `GET /repos/SashaZel/unit-demo-cra/compare/v${Number(
-        GH_REF_NAME.slice(1) - 1
-      )}...${GH_REF_NAME}`,
+      `GET /repos/SashaZel/unit-demo-cra/compare/v${previousTagNumber}...${GH_REF_NAME}`,
       {
         owner: "SashaZel",
         repo: "unit-demo-cra",
@@ -68,7 +68,7 @@ async function main() {
   let changelogFormatted = "";
   for (let i = 0; i < commitsChangelog.length; i++) {
     const current = commitsChangelog[i];
-    const commitMsg = `- ${current.committer.name} ${current.committer.date}\n    "${current.message}"\n    SHA: ${current.sha}\n \n`
+    const commitMsg = `- ${current.commit.committer.name} ${current.commit.committer.date}\n    "${current.commit.message}"\n    SHA: ${current.sha}\n \n`;
     changelogFormatted += commitMsg;
   }
   // const issueBody = `Release ${tagData.properties.tag.examples[0]}
@@ -76,12 +76,14 @@ async function main() {
   // ${tagData.properties.date.type}
   // ${GH_REPO}`
 
+  const issueBody = `Release ${GH_ACTOR}\nChangelog between v${previousTagNumber} and ${GH_REF_NAME}: \n \n ${changelogFormatted}`;
+
   try {
     await octokit.request("POST /repos/SashaZel/unit-demo-cra/issues", {
       owner: "SashaZel",
       repo: "unit-demo-cra",
       title: `Create release ${GH_REF_NAME}`,
-      body: `Release ${GH_ACTOR}\nChangelog: \n \n ${changelogFormatted}`,
+      body: issueBody,
       labels: ["documentation"],
       headers: {
         "X-GitHub-Api-Version": "2022-11-28",
