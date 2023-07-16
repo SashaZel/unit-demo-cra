@@ -31,7 +31,6 @@ async function main() {
     console.error("@createBranch.js Error: fail to get branch sha ", error);
     process.exit(1);
   }
-  console.log(masterRef);
   const masterSha = masterRef.data.object.sha;
 
   // Create new branch from master
