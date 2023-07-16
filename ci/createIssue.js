@@ -114,7 +114,7 @@ async function main() {
   // ${tagData.properties.date.type}
   // ${GH_REPO}`
 
-  const issueBody = `Release ${GH_ACTOR}\n ${tagInfoFormatted}\nChangelog between v${previousTagNumber} and ${GH_REF_NAME}: \n \n ${changelogFormatted}`;
+  const issueBody = `Release ${GH_REF_NAME}\n ${tagInfoFormatted}\nChangelog between v${previousTagNumber} and ${GH_REF_NAME}: \n \n ${changelogFormatted}`;
 
   try {
     await octokit.request("POST /repos/SashaZel/unit-demo-cra/issues", {
