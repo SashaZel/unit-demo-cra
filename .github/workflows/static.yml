@@ -1,10 +1,10 @@
 # Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+name: Build and deploy release
 
 on:
   # Runs on pushes targeting the default branch
-  push:
-    branches: ["master"]
+  # push:
+  #   branches: ["master"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -37,6 +37,12 @@ jobs:
           node-version: '18.x'
       - name: Install packages
         run: npm ci
+      - name: Unit testing
+        run: CI=true npm test
+      - name: Install browsers
+        run: npx playwright install
+      - name: E2E testing
+        run: npx playwright test --quiet --project=chromium --reporter=list
       - name: Build app
         run: npm run build
       - name: Setup Pages
