@@ -13,18 +13,6 @@ jobs:
         working-directory: .
     permissions:
       issues: write
-    # steps:
-    #   - name: Create issue using REST API
-    #     run: |
-    #       curl --request POST \
-    #       --url https://api.github.com/repos/${{ github.repository }}/issues \
-    #       --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
-    #       --header 'content-type: application/json' \
-    #       --data '{
-    #         "title": "Automated issue for commit: ${{ github.sha }}",
-    #         "body": "This issue was automatically created by the GitHub Action workflow **${{ github.workflow }}**. \n\n The commit hash was: _${{ github.sha }}_."
-    #         }' \
-    #       --fail
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -34,10 +22,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
-      # - name: create_report
-      #   run: echo "first blood" >> ./ci/report.txt
-      # - name: Instal Oktokit SDK
-      #   run: npm install @octokit/core
       - name: Install packages
         run: npm ci
       - name: Unit testing
@@ -56,26 +40,5 @@ jobs:
           GH_REF_NAME: ${{ github.ref_name }}
           GH_SHA: ${{ github.sha }}
           GITHUB_CONTEXT: ${{ toJson(github) }}
-        # run: echo "ISSUE_ID=578" >> "$GITHUB_OUTPUT"
         run: node ./ci/createIssue.js
-      
-      # - name: create_comment
-      #   env:
-      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     ISSUE_ID: ${{ steps.create-issue.outputs.output }}
-      #   # run: echo "issue id" && echo "$ISSUE_ID"
-      #   run: node ./ci/createIssueComment.js
-      # - name: Install packages
-      #   run: npm ci
-      # - name: Unit testing
-      #   run: CI=true npm test
-      # - name: Build app
-      #   run: npm run build
-      # - name: Deploy with gh-pages
-      #   run: |
-      #     git remote set-url origin https://git:${{ secrets.GITHUB_TOKEN }}}@github.com/${{ github.repository }}.git
-      #     npx gh-pages -d build -u "github-actions-bot <support+actions@github.com>"
-      #  env:
-      #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       
