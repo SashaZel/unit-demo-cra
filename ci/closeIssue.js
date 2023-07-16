@@ -24,10 +24,8 @@ async function main() {
     console.error("@closeIssue.js Error: fail to get issues list ", error);
     process.exit(1);
   }
-  console.log(issuesData);
   const issuesList = issuesData.data;
   const branchName = GITHUB_REF.split("/").at(-1);
-  console.log("@branchName", branchName);
   let issueNumber;
   for (let i = 0; i < issuesList.length; i++) {
     const current = issuesList[i];

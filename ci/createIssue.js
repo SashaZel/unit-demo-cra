@@ -71,7 +71,7 @@ async function main() {
     console.error("@createIssue.js Error: fail to compare tags ", error);
     process.exit(1);
   }
-  //console.log("compareData ", JSON.stringify(compareData));
+
   const commitsChangelog = compareData.data.commits;
   let changelogFormatted = "";
   for (let i = 0; i < commitsChangelog.length; i++) {
@@ -94,8 +94,8 @@ async function main() {
         "X-GitHub-Api-Version": "2022-11-28",
       },
     });
-    console.log(issueCreateResult.data.id);
-    process.env.ISSUE_ID = String(issueCreateResult.data.id);
+
+    // process.env.ISSUE_ID = String(issueCreateResult.data.id);
   } catch (error) {
     console.error("@createIssue.js Error: fail to create issue ", error);
     process.exit(1);
