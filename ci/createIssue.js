@@ -71,7 +71,7 @@ async function main() {
     process.exit(1);
   }
   //console.log("tagInfo ", tagInfo);
-  const tagInfoFormatted = `Tag author: ${tagInfo.data.tagger.name}\nTag date: ${tagInfo.data.tagger.date}\nTag message: ${tagInfo.data.message}\n \n`
+  const tagInfoFormatted = `**Tag author:** ${tagInfo.data.tagger.name}\n**Tag date:** ${tagInfo.data.tagger.date}\n**Tag message:** ${tagInfo.data.message}\n \n`
 
   // Can get all tags
   // let tagData;
@@ -122,8 +122,8 @@ async function main() {
   // ${tagData.properties.date.type}
   // ${GH_REPO}`
 
-  const issueBody = `Release ${GH_REF_NAME}\n ${tagInfoFormatted}\nChangelog between v${previousTagNumber} and ${GH_REF_NAME}: \n \n ${changelogFormatted} \n
-  ${report}`;
+  const issueBody = `# Release ${GH_REF_NAME}\n ${tagInfoFormatted}\n## Changelog between v${previousTagNumber} and ${GH_REF_NAME}: \n \n ${changelogFormatted} \n
+  ## Tests report\n \n${report}`;
 
   let issueCreateResult
   try {

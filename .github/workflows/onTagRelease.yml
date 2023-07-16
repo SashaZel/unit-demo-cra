@@ -42,7 +42,12 @@ jobs:
         run: npm ci
       - name: Unit testing
         run: CI=true npm test |& tee -a ./ci/report.txt
+      - name: Install browsers
+        run: npx playwright install
+      - name: E2E testing
+        run: npx playwright test --quiet --project=chromium --reporter=list |& tee -a ./ci/report.txt
       - name: run ci file
+        if: ${{ always() }}
         id: create-issue
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -52,7 +57,7 @@ jobs:
           GH_SHA: ${{ github.sha }}
           GITHUB_CONTEXT: ${{ toJson(github) }}
         # run: echo "ISSUE_ID=578" >> "$GITHUB_OUTPUT"
-        run: node ./ci/createIssue.js | echo "$ISSUE_ID" >> "$GITHUB_OUTPUT"
+        run: node ./ci/createIssue.js
       
       # - name: create_comment
       #   env:
