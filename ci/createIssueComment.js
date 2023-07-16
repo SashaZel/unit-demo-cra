@@ -3,7 +3,7 @@
 const { Octokit } = require("@octokit/core");
 
 const GH_TOKEN = process.env.GH_TOKEN;
-const ISSUE_DATA = process.env.ISSUE_DATA;
+const ISSUE_ID = process.env.ISSUE_ID;
 
 
 //console.log("@github context ", GITHUB_CONTEXT);
@@ -12,7 +12,7 @@ const octokit = new Octokit({
   auth: GH_TOKEN,
 });
 
-const issueData = JSON.parse(ISSUE_DATA);
+
 
 async function main() {
   // let tagData;
@@ -33,7 +33,7 @@ async function main() {
   // Get SHA for current tag
   // let tagSHAData;
   try {
-    await octokit.request(`POST /repos/SashaZel/unit-demo-cra/issues/${issueData.data.id}/comments`, {
+    await octokit.request(`POST /repos/SashaZel/unit-demo-cra/issues/${ISSUE_ID}/comments`, {
       owner: 'OWNER',
       repo: 'REPO',
       issue_number: 'ISSUE_NUMBER',

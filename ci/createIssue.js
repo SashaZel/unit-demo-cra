@@ -45,7 +45,7 @@ async function main() {
     console.error("@createIssue.js Error: fail to get tag sha ", error);
     process.exit(1);
   }
-  console.log("tagSHAdata ", tagSHAData)
+  //console.log("tagSHAdata ", tagSHAData)
   const currentTagSHA = tagSHAData.data.object.sha;
 
   // Get current tag info
@@ -62,7 +62,7 @@ async function main() {
     console.error("@createIssue.js Error: fail to get tag sha ", error);
     process.exit(1);
   }
-  console.log("tagInfo ", tagInfo);
+  //console.log("tagInfo ", tagInfo);
   const tagInfoFormatted = `Tag author: ${tagInfo.data.tagger.name}\nTag date: ${tagInfo.data.tagger.date}\nTag message: ${tagInfo.data.message}\n \n`
 
   // Can get all tags
@@ -128,8 +128,8 @@ async function main() {
         "X-GitHub-Api-Version": "2022-11-28",
       },
     });
-    console.log(issueCreateResult);
-    process.env.ISSUE_DATA = JSON.stringify(issueCreateResult);
+    console.log(issueCreateResult.data.id);
+    process.env.ISSUE_ID = issueCreateResult.data.id;
   } catch (error) {
     console.error("@createIssue.js Error: fail to create issue ", error);
     process.exit(1);
