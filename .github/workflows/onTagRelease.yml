@@ -34,8 +34,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
-      - name: Instal Oktokit SDK
-        run: npm install @octokit/core
+      # - name: Instal Oktokit SDK
+      #   run: npm install @octokit/core
       - name: run ci file
         id: create-issue
         env:
@@ -45,7 +45,8 @@ jobs:
           GH_REF_NAME: ${{ github.ref_name }}
           GH_SHA: ${{ github.sha }}
           GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: node ./ci/createIssue.js && echo "$ISSUE_ID" >> "$GITHUB_OUTPUT"
+        run: echo "ISSUE_ID=578" >> "$GITHUB_OUTPUT"
+        # run: node ./ci/createIssue.js && echo "$ISSUE_ID" >> "$GITHUB_OUTPUT"
       - name: create_comment
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
