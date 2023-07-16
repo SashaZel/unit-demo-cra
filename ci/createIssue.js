@@ -7,6 +7,9 @@ const GH_REPO = process.env.GH_REPO;
 const GH_ACTOR = process.env.GH_ACTOR;
 const GH_REF_NAME = process.env.GH_REF_NAME;
 const GH_SHA = process.env.GH_SHA;
+const GITHUB_CONTEXT = process.env.GITHUB_CONTEXT;
+
+console.log("@github context ", GITHUB_CONTEXT);
 
 const octokit = new Octokit({
   auth: GH_TOKEN,
