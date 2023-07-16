@@ -99,4 +99,11 @@ git push origin v12
 ```
 В результате будет создан issue в репозитории GitHub с параметрами релиза и changelog коммитов.
 
+## Deployment
+
+Развертывание приложения допускается только при одобрении ответственного за релиз.
+Для запуска экшена деплоя, на странице репозитория перейдите во вкладку Actions, слева выберите Build and deploy release.
+Еще раз будут запущены тесты и в случае успеха приложение будет развернуто на GitHub Pages по адресу https://sashazel.github.io/unit-demo-cra/ (отредактируйте адрес если у вас форк)
+Проверить статус деплоя можно в разделе Environments https://github.com/SashaZel/unit-demo-cra/deployments (отредактируйте адрес если у вас форк)
+
 Hot one, oooh, I'm hot one!

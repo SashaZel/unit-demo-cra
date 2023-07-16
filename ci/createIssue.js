@@ -116,8 +116,9 @@ async function main() {
 
   const issueBody = `Release ${GH_REF_NAME}\n ${tagInfoFormatted}\nChangelog between v${previousTagNumber} and ${GH_REF_NAME}: \n \n ${changelogFormatted}`;
 
+  let issueCreateResult
   try {
-    await octokit.request("POST /repos/SashaZel/unit-demo-cra/issues", {
+    issueCreateResult = await octokit.request("POST /repos/SashaZel/unit-demo-cra/issues", {
       owner: "SashaZel",
       repo: "unit-demo-cra",
       title: `Create release ${GH_REF_NAME}`,
@@ -127,6 +128,8 @@ async function main() {
         "X-GitHub-Api-Version": "2022-11-28",
       },
     });
+    console.log(issueCreateResult);
+    process.env.ISSUE_DATA = JSON.stringify(issueCreateResult);
   } catch (error) {
     console.error("@createIssue.js Error: fail to create issue ", error);
     process.exit(1);
