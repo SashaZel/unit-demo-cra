@@ -5,6 +5,12 @@ on:
         tags:
             - '*'
 
+permissions:
+      issues: write
+      contents: read
+      pages: write
+      id-token: write
+
 jobs:
   create_issue:
     environment:
@@ -14,11 +20,6 @@ jobs:
     defaults:
       run:
         working-directory: .
-    permissions:
-      issues: write
-      contents: read
-      pages: write
-      id-token: write
     # steps:
     #   - name: Create issue using REST API
     #     run: |
