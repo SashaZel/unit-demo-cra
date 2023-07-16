@@ -44,7 +44,7 @@ async function main() {
       owner: GH_ACTOR,
       repo: "unit-demo-cra",
       issue_number: issueNumber,
-      body: `Deploy success.\n ${Date.now().toLocaleString()}`,
+      body: `Deploy success.\n ${new Date().toString()}`,
       headers: {
         "X-GitHub-Api-Version": "2022-11-28",
       },
