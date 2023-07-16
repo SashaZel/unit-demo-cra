@@ -46,21 +46,31 @@ async function main() {
 
   let compareData;
   try {
-    compareData = await octokit.request('GET /repos/SashaZel/unit-demo-cra/compare/v12...v13', {
-      owner: "SashaZel",
-      repo: "unit-demo-cra",
-      basehead: 'BASEHEAD',
-      headers: {
-        'X-GitHub-Api-Version': '2022-11-28'
+    compareData = await octokit.request(
+      `GET /repos/SashaZel/unit-demo-cra/compare/v${Number(
+        GH_REF_NAME.slice(1) - 1
+      )}...${GH_REF_NAME}`,
+      {
+        owner: "SashaZel",
+        repo: "unit-demo-cra",
+        basehead: "BASEHEAD",
+        headers: {
+          "X-GitHub-Api-Version": "2022-11-28",
+        },
       }
-    })
-
+    );
   } catch (error) {
     console.error("@createIssue.js Error: fail to compare tags ", error);
     process.exit(1);
   }
-  console.log("compareData ", JSON.stringify(compareData))
-
+  console.log("compareData ", JSON.stringify(compareData));
+  const commitsChangelog = compareData.data.commits;
+  let changelogFormatted = "";
+  for (let i = 0; i < commitsChangelog.length; i++) {
+    const current = commitsChangelog[i];
+    const commitMsg = `- ${current.committer.name} ${current.committer.date}\n    "${current.message}"\n    SHA: ${current.sha}\n \n`
+    changelogFormatted += commitMsg;
+  }
   // const issueBody = `Release ${tagData.properties.tag.examples[0]}
   // Created by: ${tagData.properties.tagger.properties.name.type}
   // ${tagData.properties.date.type}
@@ -71,7 +81,7 @@ async function main() {
       owner: "SashaZel",
       repo: "unit-demo-cra",
       title: `Create release ${GH_REF_NAME}`,
-      body: `Release ${GH_ACTOR}`,
+      body: `Release ${GH_ACTOR}\nChangelog: \n \n ${changelogFormatted}`,
       labels: ["documentation"],
       headers: {
         "X-GitHub-Api-Version": "2022-11-28",
