@@ -19,15 +19,15 @@ jobs:
                 fetch-depth: 0
             - name: Just a test msg
               run: echo "test case"
-            # - name: Setup node
-            #   uses: actions/setup-node@v3
-            #   with:
-            #     node-version: '18.x'
-            # - name: Install packages
-            #   run: npm ci
-            # - name: Unit testing
-            #   run: CI=true npm test
-            # - name: Install browsers
-            #   run: npx playwright install
-            # - name: E2E testing
-            #   run: npx playwright test --quiet --project=chromium --reporter=list
+            - name: Setup node
+              uses: actions/setup-node@v3
+              with:
+                node-version: '18.x'
+            - name: Install packages
+              run: npm ci
+            - name: Unit testing
+              run: CI=true npm test
+            - name: Install browsers
+              run: npx playwright install
+            - name: E2E testing
+              run: npx playwright test --quiet --project=chromium --reporter=list

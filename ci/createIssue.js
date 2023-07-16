@@ -80,8 +80,7 @@ async function main() {
     changelogFormatted += commitMsg;
   }
 
-  const issueBody = `# Release ${GH_REF_NAME}\n ${tagInfoFormatted}\n## Changelog between v${previousTagNumber} and ${GH_REF_NAME}: \n \n ${changelogFormatted} \n
-  ## Tests report\n \n${report}`;
+  const issueBody = `# Release ${GH_REF_NAME}\n ${tagInfoFormatted}\n## Changelog between v${previousTagNumber} and ${GH_REF_NAME}: \n \n ${changelogFormatted} \n## Tests report\n \n${report}`;
 
   let issueCreateResult;
   try {
