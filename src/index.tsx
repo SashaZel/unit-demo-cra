@@ -6,9 +6,7 @@ import { initStore } from "./store";
 
 import "./index.css";
 
-const PROD_BUILD = process?.env?.PROD_BUILD;
-const GH_REPO = process?.env?.GH_REPO || "/";
-const basename = PROD_BUILD ? GH_REPO.split("/")[1] : "";
+const basename = process.env.REACT_APP_PROD || "/";
 
 const container = document.getElementById("root");
 
