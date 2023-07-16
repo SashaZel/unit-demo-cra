@@ -11,8 +11,7 @@ jobs:
     defaults:
       run:
         working-directory: .
-    permissions:
-      issues: write
+    permissions: write-all
     steps:
       - name: Checkout
         uses: actions/checkout@v3
