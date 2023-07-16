@@ -97,7 +97,7 @@ git tag -a v12 -m "my release version 12"
 git push origin v12
 
 ```
-В результате будет создан issue в репозитории GitHub с параметрами релиза и changelog коммитов.
+В результате будет создан issue в репозитории GitHub с параметрами релиза, changelog коммитов и результатами тестов.
 
 ## Deployment
 
