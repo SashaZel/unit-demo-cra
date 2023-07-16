@@ -129,7 +129,7 @@ async function main() {
       },
     });
     console.log(issueCreateResult.data.id);
-    process.env.ISSUE_ID = issueCreateResult.data.id;
+    process.env.ISSUE_ID = String(issueCreateResult.data.id);
   } catch (error) {
     console.error("@createIssue.js Error: fail to create issue ", error);
     process.exit(1);
