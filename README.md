@@ -17,6 +17,7 @@ npm ci
 # запустить приложение
 npm start
 ```
+
 ### Как настроить линтер коммитов git:
 
 ```sh
@@ -26,6 +27,7 @@ npx husky install
 # Add git hooks
 npx husky add .husky/commit-msg  'npx --no -- commitlint --edit ${1}'
 ```
+
 Теперь ваши сообщения коммитов должны соответствовать конвенции, например `git commit -m "chore: add hot"`.
 
 [Подробнее о конвенции коммитов](https://www.conventionalcommits.org/en/v1.0.0/)
@@ -43,6 +45,7 @@ npx playwright install
 # запустить тесты
 npm run e2e
 ```
+
 ### Как запустить все модульные тесты локально и однократно:
 
 ```sh
@@ -69,13 +72,13 @@ git add .
 # помните про линтер коммитов
 git commit -m "chore: add hot feature bug fix"
 
-# добавьте новую удаленную ветку для фичи 
+# добавьте новую удаленную ветку для фичи
 # (адрес моего репо или адрес вашего форка)
 git remote add feature_one https://github.com/SashaZel/unit-demo-cra
 
 # в браузере перейдите на адрес моего репо https://github.com/SashaZel/unit-demo-cra
-# сделайте pull request в меню сверху (большая зеленая кнопочка или в меню Pull requests) 
-# Внимание! Выберите правильную ветку КУДА будет пулл реквест 
+# сделайте pull request в меню сверху (большая зеленая кнопочка или в меню Pull requests)
+# Внимание! Выберите правильную ветку КУДА будет пулл реквест
 # (не в базовый репо домашки!!! В иконке "base" должен быть мой репо или ваш форк.)
 
 ```
@@ -84,11 +87,15 @@ git remote add feature_one https://github.com/SashaZel/unit-demo-cra
 
 Как создать релиз?
 
-Добавьте разрешение создавать issue в репозитории.
+Важно: Добавьте разрешение создавать issue в репозитории.
 
 ```sh
 # Создайте релизный тег, например v12
 git tag -a v12 -m "my release version 12"
 
+# Запушьте релизный тег на GitHub
+git push origin v12
+
 ```
+
 Hot one

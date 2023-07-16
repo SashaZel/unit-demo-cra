@@ -31,18 +31,35 @@ async function main() {
   let tagData;
   try {
     tagData = await octokit.request("GET /repos/SashaZel/unit-demo-cra/tags", {
-      owner: "OWNER",
-      repo: "REPO",
+      owner: "SashaZel",
+      repo: "unit-demo-cra",
       headers: {
         "X-GitHub-Api-Version": "2022-11-28",
       },
     });
   } catch (error) {
-    console.error("@createIssue.js Error: fail to get tag data ", error);
+    console.error("@createIssue.js Error: fail to get tags data ", error);
     process.exit(1);
   }
 
-  console.log(tagData);
+  console.log("tagsData ", String(tagData));
+
+  let compareData;
+  try {
+    compareData = await octokit.request('GET /repos/SashaZel/unit-demo-cra/compare/v12...v13', {
+      owner: "SashaZel",
+      repo: "unit-demo-cra",
+      basehead: 'BASEHEAD',
+      headers: {
+        'X-GitHub-Api-Version': '2022-11-28'
+      }
+    })
+
+  } catch (error) {
+    console.error("@createIssue.js Error: fail to compare tags ", error);
+    process.exit(1);
+  }
+  console.log("compareData ", String(compareData))
 
   // const issueBody = `Release ${tagData.properties.tag.examples[0]}
   // Created by: ${tagData.properties.tagger.properties.name.type}
