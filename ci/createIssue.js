@@ -3,6 +3,8 @@ const { readFileSync } = require("fs");
 
 const GH_TOKEN = process.env.GH_TOKEN;
 const GH_REF_NAME = process.env.GH_REF_NAME;
+const GH_REPO = process.env.GH_REPO;
+const GH_ACTOR = process.env.GH_ACTOR || "unknown author";
 
 // const GITHUB_CONTEXT = process.env.GITHUB_CONTEXT;
 // console.log("@github context ", GITHUB_CONTEXT);
@@ -21,16 +23,13 @@ const octokit = new Octokit({
 async function main() {
   let tagSHAData;
   try {
-    tagSHAData = await octokit.request(
-      `GET /repos/SashaZel/unit-demo-cra/git/refs/tags/${GH_REF_NAME}`,
-      {
-        owner: "SashaZel",
-        repo: "unit-demo-cra",
-        headers: {
-          "X-GitHub-Api-Version": "2022-11-28",
-        },
-      }
-    );
+    tagSHAData = await octokit.request(`GET /repos/${GH_REPO}/git/refs/tags/${GH_REF_NAME}`, {
+      owner: GH_ACTOR,
+      repo: "unit-demo-cra",
+      headers: {
+        "X-GitHub-Api-Version": "2022-11-28",
+      },
+    });
   } catch (error) {
     console.error("@createIssue.js Error: fail to get tag sha ", error);
     process.exit(1);
@@ -40,8 +39,8 @@ async function main() {
   // Get current tag info
   let tagInfo;
   try {
-    tagInfo = await octokit.request(`GET /repos/SashaZel/unit-demo-cra/git/tags/${currentTagSHA}`, {
-      owner: "SashaZel",
+    tagInfo = await octokit.request(`GET /repos/${GH_REPO}/git/tags/${currentTagSHA}`, {
+      owner: GH_ACTOR,
       repo: "unit-demo-cra",
       headers: {
         "X-GitHub-Api-Version": "2022-11-28",
@@ -58,9 +57,9 @@ async function main() {
   if (GH_REF_NAME === "v1") previousTagNumber = 1;
   try {
     compareData = await octokit.request(
-      `GET /repos/SashaZel/unit-demo-cra/compare/v${previousTagNumber}...${GH_REF_NAME}`,
+      `GET /repos/${GH_REPO}/compare/v${previousTagNumber}...${GH_REF_NAME}`,
       {
-        owner: "SashaZel",
+        owner: GH_ACTOR,
         repo: "unit-demo-cra",
         basehead: "BASEHEAD",
         headers: {
@@ -86,8 +85,8 @@ async function main() {
 
   let issueCreateResult;
   try {
-    issueCreateResult = await octokit.request("POST /repos/SashaZel/unit-demo-cra/issues", {
-      owner: "SashaZel",
+    issueCreateResult = await octokit.request(`POST /repos/${GH_REPO}/issues`, {
+      owner: GH_ACTOR,
       repo: "unit-demo-cra",
       title: `Create release ${GH_REF_NAME}`,
       body: issueBody,

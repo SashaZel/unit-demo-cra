@@ -107,7 +107,8 @@ git push origin v12
 - на странице репозитория перейдите во вкладку Actions
 - слева выберите Build and deploy release.
 - нажмите справа 'Run workflow' и выберите ветку релиза для деплоя
-Еще раз будут запущены тесты и в случае успеха приложение будет развернуто на GitHub Pages по адресу https://sashazel.github.io/unit-demo-cra/ (отредактируйте адрес если у вас форк)
+Будут еще раз запущены тесты и в случае успеха приложение будет развернуто на GitHub Pages по адресу https://sashazel.github.io/unit-demo-cra/ (отредактируйте адрес если у вас форк)
+После деплоя issue релиза будет отмечен как закрытый.
 Проверить статус деплоя можно в разделе Environments https://github.com/SashaZel/unit-demo-cra/deployments (отредактируйте адрес если у вас форк)
 
 Hot one, oooh, I'm hot one!
