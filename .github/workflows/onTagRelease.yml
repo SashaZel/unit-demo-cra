@@ -50,7 +50,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_ID: ${{ steps.create-issue.outputs.ISSUE_ID }}
-        run: node ./ci/createIssueComment.js
+        run: echo "issue id" && echo "$ISSUE_ID"
+        # run: node ./ci/createIssueComment.js
       # - name: Install packages
       #   run: npm ci
       # - name: Unit testing
