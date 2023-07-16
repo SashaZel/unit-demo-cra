@@ -42,7 +42,7 @@ async function main() {
     process.exit(1);
   }
 
-  console.log("tagsData ", String(tagData));
+  console.log("tagsData ", JSON.stringify(tagData));
 
   let compareData;
   try {
@@ -59,7 +59,7 @@ async function main() {
     console.error("@createIssue.js Error: fail to compare tags ", error);
     process.exit(1);
   }
-  console.log("compareData ", String(compareData))
+  console.log("compareData ", JSON.stringify(compareData))
 
   // const issueBody = `Release ${tagData.properties.tag.examples[0]}
   // Created by: ${tagData.properties.tagger.properties.name.type}
