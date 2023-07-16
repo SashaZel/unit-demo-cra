@@ -46,7 +46,11 @@ jobs:
           GH_SHA: ${{ github.sha }}
           GITHUB_CONTEXT: ${{ toJson(github) }}
         # run: echo "ISSUE_ID=578" >> "$GITHUB_OUTPUT"
-        run: node ./ci/createIssue.js | echo 'ISSUE_ID<<EOF' >> $GITHUB_OUTPUT echo $ISSUE_ID >> $GITHUB_OUTPUT echo 'EOF' >> $GITHUB_OUTPUT
+        run: node ./ci/createIssue.js |
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "ISSUE_ID<<$EOF" >> "$GITHUB_OUTPUT"
+          $ISSUE_ID >> "$GITHUB_OUTPUT"
+          echo "$EOF" >> "$GITHUB_OUTPUT"
       - name: create_comment
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
