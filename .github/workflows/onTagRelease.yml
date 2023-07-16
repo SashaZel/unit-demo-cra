@@ -7,12 +7,18 @@ on:
 
 jobs:
   create_issue:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: .
     permissions:
       issues: write
+      contents: read
+      pages: write
+      id-token: write
     # steps:
     #   - name: Create issue using REST API
     #     run: |
@@ -51,9 +57,18 @@ jobs:
         run: CI=true npm test
       - name: Build app
         run: npm run build
-      - name: Deploy with gh-pages
-        run: |
-          git remote set-url origin https://git:${{ secrets.GITHUB_TOKEN }}}@github.com/${{ github.repository }}.git
-          npx gh-pages -d build -u "github-actions-bot <support+actions@github.com>"
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          # Upload entire repository
+          path: './build'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+
       #  env:
       #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      
