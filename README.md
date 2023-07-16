@@ -6,7 +6,7 @@ https://t.me/sasha_zelenkov
 
 ## Сборка приложения и зависимости
 
-Для запуска примеров необходимо установить [NodeJS](https://nodejs.org/en/download/) 16 или выше.
+Для запуска примеров необходимо установить [NodeJS](https://nodejs.org/en/download/) 16.6 или выше.
 
 ### Как запустить:
 
@@ -79,7 +79,7 @@ git remote add feature_one https://github.com/SashaZel/unit-demo-cra
 # в браузере перейдите на адрес моего репо https://github.com/SashaZel/unit-demo-cra
 # сделайте pull request в меню сверху (большая зеленая кнопочка или в меню Pull requests)
 # Внимание! Выберите правильную ветку КУДА будет пулл реквест
-# (не в базовый репо домашки! В иконке "base" должен быть мой репо или ваш форк.)
+# (не в базовый репо домашки! В иконке "base" должен быть этот репо или ваш форк.)
 
 ```
 
@@ -110,5 +110,3 @@ git push origin v12
 Будут еще раз запущены тесты и в случае успеха приложение будет развернуто на GitHub Pages по адресу https://sashazel.github.io/unit-demo-cra/ (отредактируйте адрес если у вас форк)
 После деплоя issue релиза будет отмечен как закрытый.
 Проверить статус деплоя можно в разделе Environments https://github.com/SashaZel/unit-demo-cra/deployments (отредактируйте адрес если у вас форк)
-
-Hot one, oooh, I'm hot one!
