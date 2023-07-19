@@ -97,19 +97,23 @@ git tag -a v12 -m "my release version 12"
 git push origin v12
 
 ```
+
 В результате будет создан issue в репозитории GitHub с параметрами релиза, changelog коммитов и результатами тестов.
 
 ## Deployment
 
 Развертывание приложения допускается только при одобрении ответственного за релиз.
-Для запуска экшена деплоя: 
+Для запуска экшена деплоя:
+
 - для разрешения деплоя с веток релизов перейдите Setting -> Environment -> Deployment branch (выбрать All branches)
 - на странице репозитория перейдите во вкладку Actions
 - слева выберите Build and deploy release.
 - нажмите справа 'Run workflow' и выберите ветку релиза для деплоя
-Будут: 
+  Будут:
 - еще раз запущены тесты
-- в случае успеха приложение будет развернуто на GitHub Pages по адресу https://sashazel.github.io/unit-demo-cra/ (отредактируйте адрес если у вас форк) 
+- в случае успеха приложение будет развернуто на GitHub Pages по адресу https://sashazel.github.io/unit-demo-cra/ (отредактируйте адрес если у вас форк)
 - в issue релиза добавится комментарий с информацией о деплое.
 - issue релиза будет отмечен как закрытый.
-Проверить статус деплоя можно в разделе Environments https://github.com/SashaZel/unit-demo-cra/deployments (отредактируйте адрес если у вас форк)
+  Проверить статус деплоя можно в разделе Environments https://github.com/SashaZel/unit-demo-cra/deployments (отредактируйте адрес если у вас форк)
+
+test
